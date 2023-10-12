@@ -18,7 +18,8 @@ const Linkedlist = struct {
             .tail = null,
         };
     }
-
+    
+    /// pushing elements in the tail from linkedlist
     pub fn push_back(self: *Linkedlist, data: u8) !void {
         var node = try alloc.allocator().create(Node);
         node.data = data;
@@ -32,7 +33,8 @@ const Linkedlist = struct {
             self.tail = node;
         }
     }
-
+    
+    /// pushing elements in the head 
     pub fn push_front(self: *Linkedlist, data: u8) !void {
         var node = try alloc.allocator().create(Node);
         node.data = data;
@@ -47,7 +49,7 @@ const Linkedlist = struct {
         self.head = node;
     }
 
-    /// pop elements from front the linkedlist
+    /// delete the first element
     pub fn pop_front(self: *Linkedlist) u8 {
         const data = self.head.?.data;
         const head_ptr = self.head.?;
@@ -55,7 +57,8 @@ const Linkedlist = struct {
         defer alloc.allocator().destroy(head_ptr);
         return data;
     }
-
+    
+    /// delete the last element
     pub fn pop_back(self: *Linkedlist) void {
         const tail_ptr: ?*Node = self.tail;
         defer alloc.allocator().destroy(tail_ptr.?);
@@ -66,6 +69,7 @@ const Linkedlist = struct {
         self.tail = node;
     }
 
+    /// get total nodes
     pub fn size(self: *Linkedlist) u8 {
         var node: ?*Node = self.head;
         var total_items: u8 = 0;
@@ -77,14 +81,16 @@ const Linkedlist = struct {
 
         return total_items;
     }
-
+    
+    /// check if the list is empty
     pub fn is_empty(self: *Linkedlist) bool {
         if (self.head == null or self.tail == null) {
             return true;
         }
         return false;
     }
-
+    
+    /// get value from index given
     pub fn value_at(self: *Linkedlist, index: u8) u8 {
         var contable: u8 = 0;
         var node: ?*Node = self.head;
@@ -100,10 +106,12 @@ const Linkedlist = struct {
         return 0;
     }
 
+    /// get element from front
     pub fn front(self: *Linkedlist) u8 {
         return self.head.?.data;
     }
 
+    /// get the last element
     pub fn back(self: *Linkedlist) u8 {
         return self.tail.?.data;
     }
@@ -150,7 +158,8 @@ const Linkedlist = struct {
         prev_node.?.next = target_node.?.next;
         alloc.allocator().destroy(target_ptr);
     }
-
+    
+    /// get elements from end being head using index
     pub fn value_n_from_end(self: *Linkedlist, index: i8) u8 {
         var total_nodes: i8 = 0;
         var node = self.head;
@@ -172,7 +181,8 @@ const Linkedlist = struct {
 
         return target_node.?.data;
     }
-
+    
+    /// revert the list uwu
     pub fn revert(self: *Linkedlist) void {
         var current_pointer: ?*Node = self.head;
         var preview_pointer: ?*Node = null;
@@ -186,7 +196,8 @@ const Linkedlist = struct {
 
         self.head = preview_pointer;
     }
-
+    
+    /// remove node from the list using a value
     pub fn remove_from_value(self: *Linkedlist, value: u8) void {
         var contable: i8 = 0;
         var node = self.head;
