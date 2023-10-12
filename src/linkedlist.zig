@@ -1,5 +1,5 @@
 const std = @import("std");
-const alloc = std.heap.GeneralPurposeAllocator(.{}){};
+var alloc = std.heap.GeneralPurposeAllocator(.{}){};
 const expect = std.testing.expect;
 const person = @import("function.zig");
 
